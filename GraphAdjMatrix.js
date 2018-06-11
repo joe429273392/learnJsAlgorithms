@@ -25,7 +25,7 @@ class Graph {
     return rs;
   }
 
-  // 单源最短路径
+  // 单源最短路径 O(v^2)
   dijkstra(src) {
     let dist = [],
     visited = [],
@@ -48,9 +48,38 @@ class Graph {
     return dist;
   }
 
-  // 任意顶点之间的最短路径
+  // 任意顶点之间的最短路径 O(v^3)
   floyd() {
+    let dist = [],
+      length = this.length,
+      i, j, k;
+    
+      for (i = 0; i < length; i++) {
+        dist[i] = [];
+        for (j = 0; j < length; j++) {
+          dist[i][j] = this.matrix[i][j];
+        }
+      }
 
+      for (k = 0; k < length; k++) {
+        for (i = 0; i < length; i++) {
+          for (j = 0; j < length; j++) {
+            if (dist[i][k] + dist[k][j] < dist[i][j]) {
+              dist[i][j] = dist[i][k] + dist[k][j];
+            }
+          }
+        }
+      }
+      return dist;
+  }
+
+  // 最小生成树
+  prim() {
+
+  }
+
+  kruskal() {
+    
   }
 }
 
@@ -59,7 +88,7 @@ function initializeMatrix(length) {
   for (let i = 0; i < matrix.length; i++) {
     matrix[i] = new Array(length);
     for (let j = 0; j < matrix[i].length; j++) {
-      matrix[i][j] = 0;
+      matrix[i][j] = i === j ? 0 : INF;
     }
   }
   return matrix;

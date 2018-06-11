@@ -34,4 +34,5 @@ G.addEdge(3,5,2);
 G.addEdge(4,5,2);
 
 
-console.log(G.dijkstra(0));
+console.log(G.floyd());
+console.log(G.dijkstra(1));
