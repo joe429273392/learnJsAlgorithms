@@ -1,3 +1,5 @@
+const priorityQueue = require('./PriorityQueue');
+
 const INF = Number.MAX_SAFE_INTEGER;
 
 class Graph {
@@ -75,10 +77,45 @@ class Graph {
 
   // 最小生成树
   prim() {
+    let parent = [],
+    visited = [],
+    length = this.length,
+    key = [];
 
+    for (let i = 0; i < length; i++) {
+      key[i] = INF;
+      visited[i] = false;
+    }
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (let i = 0; i < length-1; i++) {
+      let u = minKey(key, visited);
+      visited[u] = true;
+
+      for (let v = 0; v < length; v++) {
+        if (this.matrix[u][v] && visited[v] === false && this.matrix[u][v] < key[v]) {
+          parent[v] = u;
+          key[v] = this.matrix[u][v];
+        }
+        
+      }
+    }
+    return parent;
   }
 
   kruskal() {
+    let queue = new priorityQueue(),
+    length = this.length,
+    set = new Set();
+    
+    for (let i = 0; i < length; i++) {
+      for (let j = i+1; j < length; j++) {
+        queue.enQueue('('+i+','+j+')', this.matrix[i][j]);
+      }
+    }
+    
     
   }
 }
@@ -104,5 +141,18 @@ function minDistance(dist ,visited) {
   }
   return minIndex;
 }
+
+function minKey(key ,visited) {
+  let min = INF, minIndex = -1;
+  for (let i = 0; i < key.length; i++) {
+    if(visited[i] === false && key[i] <= min) {
+      min = key[i];
+      minIndex = i;
+    }
+  }
+  return minIndex;
+}
+
+
 
 module.exports = Graph;

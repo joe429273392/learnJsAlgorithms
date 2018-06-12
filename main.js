@@ -22,17 +22,15 @@ const Graph = require('./GraphAdjMatrix');
 // G.addEdge('C','F');
 // G.DFS();
 
-let G = new Graph(6,1);
+let G = new Graph(6);
 G.addEdge(0,1,2);
 G.addEdge(0,2,4);
-G.addEdge(1,2,1);
+G.addEdge(1,2,2);
 G.addEdge(1,3,4);
 G.addEdge(1,4,2);
 G.addEdge(2,4,3);
 G.addEdge(4,3,3);
 G.addEdge(3,5,2);
 G.addEdge(4,5,2);
+G.kruskal();
 
-
-console.log(G.floyd());
-console.log(G.dijkstra(1));
