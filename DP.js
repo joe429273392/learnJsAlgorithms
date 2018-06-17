@@ -16,7 +16,7 @@ class DPSolveWorkProblem {
     this.OPT = [];
   }
 
-  // how to optimize
+  // mark: think about how to optimize  now O(n^2)
   getPrev() {
     let length = this.workTable.length;
     this.prev[0] = 0;
@@ -65,6 +65,7 @@ class DPSolveWorkProblem {
 
 
 // 选数组中非相邻数字 和最大的一堆数字
+// mark : think about how to return the result array instead of the sum!
 class arraySumProblem {
   constructor(array) {
     this.array = array;
@@ -89,18 +90,22 @@ class arraySumProblem {
 
 // 从数组中选出一堆数组和为给定值
 
-class arrSumEqualS {
+class subSet {
   constructor (arr) {
     this.arr = arr;
-    this.OPT = [];
   }
 
-  solve() {
-
+  solve(sum) {
+    let length = this.arr.length;
+    let OPTarray = new Array(length);
+    for (let i = 0; i < length; i++) {
+      OPTarray[i] = new Array(sum+1);
+    }
+    
   }
 }
 
-// arrSumEqualS test
-let arrSumEqualSTest = new arrSumEqualS([3,34,4,12,5,2]);
+// subSet test
+let DPSubSet = new subSet([3,34,4,12,5,2]);
 
 
