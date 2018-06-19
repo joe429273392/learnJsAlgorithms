@@ -91,21 +91,64 @@ class arraySumProblem {
 // 从数组中选出一堆数组和为给定值
 
 class subSet {
-  constructor (arr) {
+  constructor (arr, sum) {
     this.arr = arr;
+    this.sum = sum;
+    this.OPTarray = new Array(this.arr.length);
+    for (let i = 0; i < this.arr.length; i++) {
+      this.OPTarray[i] = new Array(this.sum + 1);
+      this.OPTarray[i][0] = new Array();
+    }
+    for (let s = 0; s < this.sum+1; s++) {
+      this.OPTarray[0][s] = this.arr[0] === s ? (new Array(s)) : false;
+    }
+    for (let i = 1; i < this.arr.length; i++) {
+      for (let s = 1; s < this.sum + 1; s++) {
+        if (this.OPTarray[i] > s) {
+          this.OPTarray[i][s] = this.OPTarray[i-1][s].concat();
+        } else {
+          if(this.OPTarray[i-1][s]) {
+            this.OPTarray[i][s] = this.OPTarray[i-1][s].concat();
+          } else if (this.OPTarray[i-1][s-this.arr[i]]) {
+            this.OPTarray[i][s] = this.OPTarray[i-1][s-this.arr[i]].concat(this.arr[i]);
+          } else {
+            this.OPTarray[i][s] = false;
+          }
+        }
+      }
+    }
   }
 
-  solve(sum) {
-    let length = this.arr.length;
-    let OPTarray = new Array(length);
-    for (let i = 0; i < length; i++) {
-      OPTarray[i] = new Array(sum+1);
-    }
-    
-  }
 }
 
 // subSet test
-let DPSubSet = new subSet([3,34,4,12,5,2]);
+let DPSubSet = new subSet([3,34,4,12,5,2], 9);
+console.log(DPSubSet.OPTarray[5][9]);
 
+class minCoinChange {
+  constructor(coins) {
+    this.coins = coins;
+  }
+
+  recSolve(amount) {
+    let length = this.coins.length;
+    return this.rec(length - 1, amount);
+  }
+
+  rec(coin, amount) {
+    if (amount === 0) {
+      return true;
+    } 
+    else if (coin === 0) {
+      return (amount % this.coins[coin] === 0);
+    }
+    else if (this.coins[coin] > amount) {
+      return this.recSolve(coin - 1, amount);
+    }
+    else {
+      return (this.recSolve(coin, amount - this.coins[coin]) || this.recSolve(coin - 1, amount))
+    }
+
+  }
+}
 

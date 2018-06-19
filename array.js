@@ -55,3 +55,6 @@ numberCopy.fill(1);
 // copyWithin() //赋值数组中的一系列元素到同一数组指定的起始位置
 
 // reverse()  sort()
+
+
+

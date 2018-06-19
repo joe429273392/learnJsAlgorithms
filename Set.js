@@ -42,6 +42,21 @@ class Set {
     return values;
   }
 
+  union(SetB) {
+    let unionSet = new Set();
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+  
+    values = SetB.values();
+    for (let i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+  
+    return unionSet;
+  }
+
 }
 
 module.exports = Set;
